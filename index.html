@@ -1,0 +1,78 @@
+<head>
+    <style type="text/css">
+        .number {
+            fill: red;
+            color: red;
+            font-size: 48px;
+        }
+    </style>
+</head>
+
+<body>
+    <svg width="800" height="800">
+        <image xlink:href="cats.jpeg" x="0" y="0" height="100%" width="100%" />
+        <g class="number">
+            <text x="569" y="92">1</text>
+            <text x="665" y="138">2</text>
+            <text x="730" y="290">3</text>
+            <text x="731" y="434">4</text>
+            <text x="555" y="603">5</text>
+            <text x="408" y="635">6</text>
+            <text x="180" y="582">7</text>
+            <text x="99" y="480">8</text>
+            <text x="52" y="270">9</text>
+            <text x="122" y="140">10</text>
+            <text x="275" y="45">11</text>
+        </g>
+        <g id="arrows">
+        </g>
+    </svg>
+    <script>
+        const centerX = 419;
+        const centerY = 301;
+
+        const arrows = document.getElementById('arrows');
+
+        const hourArrow = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        hourArrow.setAttributeNS(null, 'x', centerX);
+        hourArrow.setAttributeNS(null, 'y', centerY);
+        hourArrow.setAttributeNS(null, 'width', 100);
+        hourArrow.setAttributeNS(null, 'height', 40);
+        hourArrow.setAttributeNS(null, 'fill', 'red');
+        arrows.appendChild(hourArrow);
+
+        const minuteArrow = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        minuteArrow.setAttributeNS(null, 'x', centerX);
+        minuteArrow.setAttributeNS(null, 'y', centerY);
+        minuteArrow.setAttributeNS(null, 'width', 200);
+        minuteArrow.setAttributeNS(null, 'height', 20);
+        minuteArrow.setAttributeNS(null, 'fill', 'red');
+        arrows.appendChild(minuteArrow);
+
+        const secondArrow = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        secondArrow.setAttributeNS(null, 'x', centerX);
+        secondArrow.setAttributeNS(null, 'y', centerY);
+        secondArrow.setAttributeNS(null, 'width', 300);
+        secondArrow.setAttributeNS(null, 'height', 5);
+        secondArrow.setAttributeNS(null, 'fill', 'red');
+        arrows.appendChild(secondArrow);
+
+        function drawTime() {
+            const date = new Date();
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const seconds = date.getSeconds();
+
+            const hourDegree = 270 + (hours % 12) / 12 * 360;
+            const minuteDegree = 270 + minutes / 60 * 360;
+            const secondDegree = 270 + seconds / 60 * 360;
+
+            hourArrow.setAttributeNS(null, 'transform', `rotate(${hourDegree}, ${centerX}, ${centerY})`);
+            minuteArrow.setAttributeNS(null, 'transform', `rotate(${minuteDegree}, ${centerX}, ${centerY})`);
+            secondArrow.setAttributeNS(null, 'transform', `rotate(${secondDegree}, ${centerX}, ${centerY})`);
+        }
+        drawTime();
+
+        setInterval(drawTime, 500);
+    </script>
+</body>
